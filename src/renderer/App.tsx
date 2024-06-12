@@ -1,49 +1,56 @@
-import { MemoryRouter as Router, Routes, Route } from 'react-router-dom';
+import { MemoryRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 import icon from '../../assets/icon.svg';
 import './App.css';
+import componentNames from './componentNames.json';
 
-function Hello() {
+// Dynamically load all the streaming services
+function importComponents() {
+  const promises: any[] = [];
+
+  componentNames.components.forEach((element) => {
+    promises.push(
+      import(`./services/${element}/main`).then((module) => ({
+        [element]: module,
+      })),
+    );
+  });
+
+  return Promise.all(promises);
+}
+
+// Dynamically imports service-icons with links to their pages
+function MainPage() {
+  const [imports, setImports] = useState([]);
+
+  useEffect(() => {
+    // eslint-disable-next-line promise/catch-or-return, promise/always-return
+    importComponents().then((results) => {
+      setImports(results);
+    });
+  }, []); // Empty dependency array ensures useEffect runs only once
+
   return (
     <div>
-      <div className="Hello">
-        <img width="200" alt="icon" src={icon} />
-      </div>
-      <h1>electron-react-boilerplate</h1>
-      <div className="Hello">
-        <a
-          href="https://electron-react-boilerplate.js.org/"
-          target="_blank"
-          rel="noreferrer"
-        >
-          <button type="button">
-            <span role="img" aria-label="books">
-              📚
-            </span>
-            Read our docs
-          </button>
-        </a>
-        <a
-          href="https://github.com/sponsors/electron-react-boilerplate"
-          target="_blank"
-          rel="noreferrer"
-        >
-          <button type="button">
-            <span role="img" aria-label="folded hands">
-              🙏
-            </span>
-            Donate
-          </button>
-        </a>
-      </div>
+      {imports.map((module, index) => {
+
+        const IconComponent = module[componentNames.components[index]].Icon;
+
+        if (IconComponent) {
+          return <IconComponent />;
+        }
+        return null;
+      })}
     </div>
   );
 }
 
+// TODO: Dynamically link the routes
 export default function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Hello />} />
+        <Route path="/" element={<MainPage />} />
       </Routes>
     </Router>
   );
