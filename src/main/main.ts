@@ -79,6 +79,7 @@ const createWindow = async () => {
         ? path.join(__dirname, 'preload.js')
         : path.join(__dirname, '../../.erb/dll/preload.js'),
     },
+    frame: false,
   });
 
   mainWindow.loadURL(resolveHtmlPath('index.html'));
@@ -106,6 +107,11 @@ const createWindow = async () => {
     shell.openExternal(edata.url);
     return { action: 'deny' };
   });
+
+  // Remove the menu bar from the window
+  mainWindow.removeMenu();
+  // Set the window to fullscreen
+  mainWindow.setFullScreen(true);
 
   // Remove this if your app does not use auto updates
   // eslint-disable-next-line
@@ -135,3 +141,5 @@ app
     });
   })
   .catch(console.log);
+
+

@@ -15,13 +15,11 @@ export function Icon() {
 
 export function Website() {
   return (
-    <div className="tv4Iframe">
+    <div className="iframe">
       <iframe
         id="iFrameExample"
         title="iFrame Example"
         src="https://www.tv4play.se/"
-        width="2560px"
-        height="1440px"
       />
     </div>
   );

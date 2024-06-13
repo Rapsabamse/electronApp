@@ -33,18 +33,12 @@ function MainPage() {
     <div className="grid-container">
       {imports.map((module, index) => {
         const IconComponent = module[componentNames.components[index]].Icon;
-        const Website = module[componentNames.components[index]].Website;
 
         if (IconComponent) {
           return (
             <div className="grid-item">
               {/* Add the icon/button to the streaming service */}
               <IconComponent key={componentNames.components[index]} />
-
-              {/* Add the routes to the websites of the streaming service */}
-              <Routes>
-                <Route key={componentNames.components[index]} path={componentNames.components[index]} element={<Website />}/>
-              </Routes>
             </div>
           );
         }
@@ -54,11 +48,31 @@ function MainPage() {
   );
 }
 
+// Import the root path, also dynamically import routes for websites
 export default function App() {
+  const [imports, setImports] = useState([]);
+
+  useEffect(() => {
+    // eslint-disable-next-line promise/catch-or-return, promise/always-return
+    importComponents().then((results) => {
+      setImports(results);
+    });
+  }, []); // Empty dependency array ensures useEffect runs only once
+
   return (
     <Router>
       <Routes>
         <Route path="*" element={<MainPage />} />
+        {imports.map((module, index) => {
+          const { Website } = module[componentNames.components[index]];
+          return (
+            <Route
+              key={componentNames.components[index]}
+              path={`/${componentNames.components[index]}`}
+              element={<Website />}
+            />
+          );
+        })}
       </Routes>
     </Router>
   );

@@ -15,13 +15,11 @@ export function Icon() {
 
 export function Website() {
   return (
-    <div className="viaplayIframe">
+    <div className="iframe">
       <iframe
         id="iFrameExample"
         title="iFrame Example"
         src="https://viaplay.se/"
-        width="2560px"
-        height="1440px"
       />
     </div>
   );
