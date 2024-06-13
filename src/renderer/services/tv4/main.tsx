@@ -15,12 +15,8 @@ export function Icon() {
 
 export function Website() {
   return (
-    <div className="iframe">
-      <iframe
-        id="iFrameExample"
-        title="iFrame Example"
-        src="https://www.tv4play.se/"
-      />
+    <div className="iframeTv4">
+      <iframe id="iFrameTv4" title="iFrameTv4" src="https://www.tv4play.se/" />
     </div>
   );
 }

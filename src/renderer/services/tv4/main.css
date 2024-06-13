@@ -1,5 +1,13 @@
-.iframe{
+#iFrameTv4{
   position: absolute;
-  display: block;
   border: none;
+  left: 0;
+  top: 0;
+  margin: 0;
+  width: calc(100vw);
+  height: 100vh;
+}
+
+iframe{
+  overflow: hidden;
 }

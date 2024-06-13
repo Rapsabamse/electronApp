@@ -17,6 +17,8 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin: 0;
+  padding: 0;
 }
 
 button {
@@ -62,4 +64,9 @@ a:hover {
 
 .grid-container {
   display: inline-grid;
+}
+
+/* Hide scrollbar for all elements */
+*::-webkit-scrollbar {
+  display: none;
 }

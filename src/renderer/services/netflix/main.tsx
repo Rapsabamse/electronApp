@@ -15,11 +15,12 @@ export function Icon() {
 
 export function Website() {
   return (
-    <div className="iframe">
+    <div className="iframeNetflix">
       <iframe
-        id="iFrameExample"
-        title="iFrame Example"
+        id="iFrameNetflix"
+        title="iFrameNetflix"
         src="https://www.netflix.com//"
+        width={screen.width + 7}
       />
     </div>
   );
