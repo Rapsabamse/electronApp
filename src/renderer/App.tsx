@@ -1,6 +1,5 @@
-import { MemoryRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { MemoryRouter as Router, Routes, Route} from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
-import icon from '../../assets/icon.svg';
 import './App.css';
 import componentNames from './componentNames.json';
 
@@ -31,13 +30,23 @@ function MainPage() {
   }, []); // Empty dependency array ensures useEffect runs only once
 
   return (
-    <div>
+    <div className="grid-container">
       {imports.map((module, index) => {
-
         const IconComponent = module[componentNames.components[index]].Icon;
+        const Website = module[componentNames.components[index]].Website;
 
         if (IconComponent) {
-          return <IconComponent />;
+          return (
+            <div className="grid-item">
+              {/* Add the icon/button to the streaming service */}
+              <IconComponent key={componentNames.components[index]} />
+
+              {/* Add the routes to the websites of the streaming service */}
+              <Routes>
+                <Route key={componentNames.components[index]} path={componentNames.components[index]} element={<Website />}/>
+              </Routes>
+            </div>
+          );
         }
         return null;
       })}
@@ -45,12 +54,11 @@ function MainPage() {
   );
 }
 
-// TODO: Dynamically link the routes
 export default function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<MainPage />} />
+        <Route path="*" element={<MainPage />} />
       </Routes>
     </Router>
   );
