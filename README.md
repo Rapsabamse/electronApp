@@ -2,6 +2,13 @@
   Hello! This is a project, it does something.
 </p>
 
+## Installing Environment
+
+Install all of the necessary components
+
+```bash
+npm install
+```
 
 ## Starting Development
 
